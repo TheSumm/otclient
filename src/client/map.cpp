@@ -555,8 +555,9 @@ std::vector<CreaturePtr> Map::getSpectatorsInRangeEx(const Position& centerPos, 
     std::vector<CreaturePtr> creatures;
 
     if(multiFloor) {
-        minZRange = 0;
-        maxZRange = Otc::MAX_Z;
+        /*minZRange = 0;
+        maxZRange = Otc::MAX_Z;*/
+		minZRange = maxZRange = centerPos.z + 1;
     }
 
     //TODO: optimize

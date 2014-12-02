@@ -39,7 +39,7 @@ void ProtocolGame::sendExtendedOpcode(uint8 opcode, const std::string& buffer)
 {
     if(m_enableSendExtendedOpcode) {
         OutputMessagePtr msg(new OutputMessage);
-        msg->addU8(Proto::ClientExtendedOpcode);
+       // msg->addU8(Proto::ClientExtendedOpcode);
         msg->addU8(opcode);
         msg->addString(buffer);
         send(msg);
@@ -53,8 +53,8 @@ void ProtocolGame::sendLoginPacket(uint challengeTimestamp, uint8 challengeRando
     OutputMessagePtr msg(new OutputMessage);
 
     msg->addU8(Proto::ClientPendingGame);
-    msg->addU16(g_game.getOs());
-    msg->addU16(g_game.getProtocolVersion());
+    msg->addU16(2);
+    msg->addU16(420);
 
     if(g_game.getClientVersion() >= 980) {
         msg->addU32(g_game.getClientVersion());
@@ -152,28 +152,28 @@ void ProtocolGame::sendAutoWalk(const std::vector<Otc::Direction>& path)
         uint8 byte;
         switch(dir) {
             case Otc::East:
-                byte = 1;
+                byte = 8;
                 break;
             case Otc::NorthEast:
-                byte = 2;
-                break;
-            case Otc::North:
-                byte = 3;
-                break;
-            case Otc::NorthWest:
-                byte = 4;
-                break;
-            case Otc::West:
-                byte = 5;
-                break;
-            case Otc::SouthWest:
-                byte = 6;
-                break;
-            case Otc::South:
                 byte = 7;
                 break;
+            case Otc::North:
+                byte = 6;
+                break;
+            case Otc::NorthWest:
+                byte = 5; // 4
+                break;
+            case Otc::West:
+                byte = 4;
+                break;
+            case Otc::SouthWest:
+                byte = 3;
+                break;
+            case Otc::South:
+                byte = 2;
+                break;
             case Otc::SouthEast:
-                byte = 8;
+                byte = 1;
                 break;
             default:
                 byte = 0;
@@ -288,11 +288,11 @@ void ProtocolGame::sendMove(const Position& fromPos, int thingId, int stackpos, 
 {
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientMove);
+	msg->addU8(stackpos);
+	msg->addU8(count);
     addPosition(msg, fromPos);
+	addPosition(msg, toPos);
     msg->addU16(thingId);
-    msg->addU8(stackpos);
-    addPosition(msg, toPos);
-    msg->addU8(count);
     send(msg);
 }
 
@@ -375,11 +375,12 @@ void ProtocolGame::sendRejectTrade()
 void ProtocolGame::sendUseItem(const Position& position, int itemId, int stackpos, int index)
 {
     OutputMessagePtr msg(new OutputMessage);
-    msg->addU8(Proto::ClientUseItem);
-    addPosition(msg, position);
-    msg->addU16(itemId);
-    msg->addU8(stackpos);
-    msg->addU8(index);
+	msg->addU8(Proto::ClientUseItem);
+	msg->addU8(stackpos);
+	msg->addU8(index); // ???
+	addPosition(msg, position);
+	msg->addU16(itemId);
+
     send(msg);
 }
 
@@ -387,12 +388,12 @@ void ProtocolGame::sendUseItemWith(const Position& fromPos, int itemId, int from
 {
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientUseItemWith);
-    addPosition(msg, fromPos);
+	msg->addU8(fromStackPos);
+	msg->addU8(toStackPos);
+	addPosition(msg, fromPos);
+	addPosition(msg, toPos);
     msg->addU16(itemId);
-    msg->addU8(fromStackPos);
-    addPosition(msg, toPos);
     msg->addU16(toThingId);
-    msg->addU8(toStackPos);
     send(msg);
 }
 
@@ -400,10 +401,10 @@ void ProtocolGame::sendUseOnCreature(const Position& pos, int thingId, int stack
 {
     OutputMessagePtr msg(new OutputMessage);
     msg->addU8(Proto::ClientUseOnCreature);
+	msg->addU8(stackpos);
     addPosition(msg, pos);
+	msg->addU32(creatureId);
     msg->addU16(thingId);
-    msg->addU8(stackpos);
-    msg->addU32(creatureId);
     send(msg);
 }
 
@@ -860,7 +861,7 @@ void ProtocolGame::sendChangeMapAwareRange(int xrange, int yrange)
         return;
 
     OutputMessagePtr msg(new OutputMessage);
-    msg->addU8(Proto::ClientChangeMapAwareRange);
+    //msg->addU8(Proto::ClientChangeMapAwareRange);
     msg->addU8(xrange);
     msg->addU8(yrange);
     send(msg);

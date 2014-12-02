@@ -159,6 +159,7 @@ public:
     void rotate(const ThingPtr& thing);
     void use(const ThingPtr& thing);
     void useWith(const ItemPtr& fromThing, const ThingPtr& toThing);
+	void useWithMonster(const ItemPtr& fromThing, const ThingPtr& toThing);
     void useInventoryItem(int itemId);
     void useInventoryItemWith(int itemId, const ThingPtr& toThing);
     ItemPtr findItemInContainers(uint itemId, int subType);

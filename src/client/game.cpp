@@ -859,6 +859,21 @@ void Game::useWith(const ItemPtr& item, const ThingPtr& toThing)
     m_protocolGame->sendUseItemWith(pos, item->getId(), item->getStackPos(), toThing->getPosition(), toThing->getId(), toThing->getStackPos());
 }
 
+void Game::useWithMonster(const ItemPtr& item, const ThingPtr& toThing)
+{
+	if (!canPerformGameAction() || !item || !toThing)
+		return;
+
+	Position pos = item->getPosition();
+	if (!pos.isValid()) // virtual item
+		pos = Position(0xFFFF, 0, 0); // means that is a item in inventory
+
+	if (!toThing->isCreature())
+		return;
+
+	m_protocolGame->sendUseOnCreature(pos, item->getId(), item->getStackPos(), toThing->getId());
+}
+
 void Game::useInventoryItemWith(int itemId, const ThingPtr& toThing)
 {
     if(!canPerformGameAction() || !toThing)

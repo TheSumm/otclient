@@ -47,6 +47,7 @@ public:
     void setMaxZoomIn(int maxZoomIn) { m_maxZoomIn = maxZoomIn; }
     void setMaxZoomOut(int maxZoomOut) { m_maxZoomOut = maxZoomOut; }
     void setMultifloor(bool enable) { m_mapView->setMultifloor(enable); }
+	void setXRay(bool enable) { m_mapView->setXRay(enable); }
     void lockVisibleFloor(int floor) { m_mapView->lockFirstVisibleFloor(floor); }
     void unlockVisibleFloor() { m_mapView->unlockFirstVisibleFloor(); }
     void setVisibleDimension(const Size& visibleDimension);
@@ -65,6 +66,7 @@ public:
     void setAddLightMethod(bool add) { m_mapView->setAddLightMethod(add); }
 
     bool isMultifloor() { return m_mapView->isMultifloor(); }
+	bool xRayEnabled() { return m_mapView->xRayEnabled(); }
     bool isAutoViewModeEnabled() { return m_mapView->isAutoViewModeEnabled(); }
     bool isDrawingTexts() { return m_mapView->isDrawingTexts(); }
     bool isDrawingNames() { return m_mapView->isDrawingNames(); }

@@ -1067,11 +1067,11 @@ void ProtocolGame::parsePlayerStats(const InputMessagePtr& msg)
     if(g_game.getFeature(Otc::GameDoubleFreeCapacity))
         freeCapacity = msg->getU32() / 100.0;
     else
-        freeCapacity = msg->getU16() / 100.0;
+        freeCapacity = msg->getU16();
 
     double totalCapacity = 0;
     if(g_game.getFeature(Otc::GameTotalCapacity))
-        totalCapacity = msg->getU32() / 100.0;
+        totalCapacity = msg->getU32();
 
     double experience;
     if(g_game.getFeature(Otc::GameDoubleExperience))

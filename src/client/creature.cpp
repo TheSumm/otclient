@@ -453,6 +453,9 @@ void Creature::onDisappear()
 
 void Creature::onDeath()
 {
+	if (this == g_game.getAttackingCreature())
+		g_game.cancelAttackAndFollow();
+
     callLuaField("onDeath");
 }
 
@@ -609,6 +612,11 @@ void Creature::setName(const std::string& name)
 
 void Creature::setHealthPercent(uint8 healthPercent)
 {
+	if (this->isDead())
+	{
+		return;
+	}
+
     if(healthPercent > 92)
         m_informationColor = Color(0x00, 0xBC, 0x00);
     else if(healthPercent > 60)

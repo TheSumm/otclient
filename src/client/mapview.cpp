@@ -413,7 +413,7 @@ void MapView::updateVisibleTilesCache(int start)
     }
 
     if(start == 0 && m_viewMode <= NEAR_VIEW)
-        m_cachedFloorVisibleCreatures = g_map.getSightSpectators(cameraPosition, false);
+		m_cachedFloorVisibleCreatures = g_map.getSightSpectators(cameraPosition, m_xRay);
 }
 
 void MapView::updateGeometry(const Size& visibleDimension, const Size& optimizedSize)

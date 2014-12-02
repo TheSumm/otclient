@@ -65,6 +65,9 @@ public:
     void setMultifloor(bool enable) { m_multifloor = enable; requestVisibleTilesCacheUpdate(); }
     bool isMultifloor() { return m_multifloor; }
 
+	void setXRay(bool enable) { m_xRay = enable; requestVisibleTilesCacheUpdate(); }
+	bool xRayEnabled() { return m_xRay; }
+
     // map dimension related
     void setVisibleDimension(const Size& visibleDimension);
     Size getVisibleDimension() { return m_visibleDimension; }
@@ -147,6 +150,7 @@ private:
     stdext::boolean<true> m_mustDrawVisibleTilesCache;
     stdext::boolean<true> m_mustCleanFramebuffer;
     stdext::boolean<true> m_multifloor;
+	stdext::boolean<false> m_xRay;
     stdext::boolean<true> m_animated;
     stdext::boolean<true> m_autoViewMode;
     stdext::boolean<true> m_drawTexts;

@@ -107,7 +107,7 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_map", "isCompletelyCovered", &Map::isCompletelyCovered, &g_map);
     g_lua.bindSingletonFunction("g_map", "addThing", &Map::addThing, &g_map);
     g_lua.bindSingletonFunction("g_map", "getThing", &Map::getThing, &g_map);
-    g_lua.bindSingletonFunction("g_map", "removeThingByPos", &Map::removeThingByPos, &g_map);
+    g_lua.bindSingletonFunction("g_map", "removeThingflByPos", &Map::removeThingByPos, &g_map);
     g_lua.bindSingletonFunction("g_map", "removeThing", &Map::removeThing, &g_map);
     g_lua.bindSingletonFunction("g_map", "colorizeThing", &Map::colorizeThing, &g_map);
     g_lua.bindSingletonFunction("g_map", "removeThingColor", &Map::removeThingColor, &g_map);
@@ -196,6 +196,7 @@ void Client::registerLuaFunctions()
     g_lua.bindSingletonFunction("g_game", "rotate", &Game::rotate, &g_game);
     g_lua.bindSingletonFunction("g_game", "use", &Game::use, &g_game);
     g_lua.bindSingletonFunction("g_game", "useWith", &Game::useWith, &g_game);
+	g_lua.bindSingletonFunction("g_game", "useWithMonster", &Game::useWithMonster, &g_game);
     g_lua.bindSingletonFunction("g_game", "useInventoryItem", &Game::useInventoryItem, &g_game);
     g_lua.bindSingletonFunction("g_game", "useInventoryItemWith", &Game::useInventoryItemWith, &g_game);
     g_lua.bindSingletonFunction("g_game", "findItemInContainers", &Game::findItemInContainers, &g_game);
@@ -721,6 +722,7 @@ void Client::registerLuaFunctions()
     g_lua.bindClassMemberFunction<UIMap>("setMaxZoomIn", &UIMap::setMaxZoomIn);
     g_lua.bindClassMemberFunction<UIMap>("setMaxZoomOut", &UIMap::setMaxZoomOut);
     g_lua.bindClassMemberFunction<UIMap>("setMultifloor", &UIMap::setMultifloor);
+	g_lua.bindClassMemberFunction<UIMap>("setXRay", &UIMap::setXRay);
     g_lua.bindClassMemberFunction<UIMap>("lockVisibleFloor", &UIMap::lockVisibleFloor);
     g_lua.bindClassMemberFunction<UIMap>("unlockVisibleFloor", &UIMap::unlockVisibleFloor);
     g_lua.bindClassMemberFunction<UIMap>("setVisibleDimension", &UIMap::setVisibleDimension);
@@ -738,6 +740,7 @@ void Client::registerLuaFunctions()
     g_lua.bindClassMemberFunction<UIMap>("setLimitVisibleRange", &UIMap::setLimitVisibleRange);
     g_lua.bindClassMemberFunction<UIMap>("setAddLightMethod", &UIMap::setAddLightMethod);
     g_lua.bindClassMemberFunction<UIMap>("isMultifloor", &UIMap::isMultifloor);
+	g_lua.bindClassMemberFunction<UIMap>("xRayEnabled", &UIMap::xRayEnabled);
     g_lua.bindClassMemberFunction<UIMap>("isAutoViewModeEnabled", &UIMap::isAutoViewModeEnabled);
     g_lua.bindClassMemberFunction<UIMap>("isDrawingTexts", &UIMap::isDrawingTexts);
     g_lua.bindClassMemberFunction<UIMap>("isDrawingNames", &UIMap::isDrawingNames);
